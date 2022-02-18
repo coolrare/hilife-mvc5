@@ -18,7 +18,7 @@ namespace MVC5Course.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel user, string ReturnUrl)
         {
-            if (ModelState.IsValid && ValidateLogin(user))
+            if (ModelState.IsValid)
             {
                 FormsAuthentication.RedirectFromLoginPage(user.Username, true);
 
@@ -46,11 +46,6 @@ namespace MVC5Course.Controllers
             {
                 return Redirect(ReturnUrl);
             }
-        }
-
-        private bool ValidateLogin(LoginViewModel user)
-        {
-            return true;
         }
     }
 }

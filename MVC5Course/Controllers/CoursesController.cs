@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -15,10 +16,24 @@ namespace MVC5Course.Controllers
     {
         private ContosoUniversityEntities db = new ContosoUniversityEntities();
 
-        // GET: Courses
-        public ActionResult Index()
+        public CoursesController()
         {
-            var course = db.Course.Include(c => c.Department);
+            db.Database.Log = (msg) =>
+            {
+                Debug.WriteLine(msg);
+            };
+        }
+
+        // GET: Courses
+        public ActionResult Index(bool isJS = false)
+        {
+            var course = db.Course.AsQueryable();
+            if (isJS)
+            {
+                course = course.Where(p => p.Title.Contains("JavaScript"));
+            }
+            course = course.Include(c => c.Department);
+            course = course.OrderBy(p => p.CourseID).Skip(2).Take(2);
             return View(course.ToList());
         }
 
@@ -124,6 +139,11 @@ namespace MVC5Course.Controllers
             }
 
             db.Course.Remove(course);
+
+
+            //var list = db.Course.Where(p => p.Title.Contains("JavaScript"));
+            //db.Course.RemoveRange(list);
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }

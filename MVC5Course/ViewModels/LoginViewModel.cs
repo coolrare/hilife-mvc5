@@ -6,7 +6,7 @@ using System.Web;
 
 namespace MVC5Course.ViewModels
 {
-    public class LoginViewModel
+    public class LoginViewModel : IValidatableObject
     {
         [Required]
         [StringLength(16)]
@@ -16,5 +16,30 @@ namespace MVC5Course.ViewModels
         [DataType(DataType.Password)]
         [StringLength(30)]
         public string Password { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (ValidateLogin())
+            {
+                yield return ValidationResult.Success;
+            }
+            else
+            {
+                yield return new ValidationResult("帳號或密碼錯誤，請重新登入！",
+                    new string[] { "Username", "Password" });
+            }
+        }
+
+        public bool ValidateLogin()
+        {
+            if (this.Username == "will")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

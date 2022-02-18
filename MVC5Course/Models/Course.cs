@@ -11,8 +11,7 @@ namespace MVC5Course.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Course
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,19 +22,11 @@ namespace MVC5Course.Models
         }
     
         public int CourseID { get; set; }
-        [Display(Name = "課程名稱")]
-        [Required(ErrorMessage = "請輸入課程名稱")]
         public string Title { get; set; }
-        [Display(Name = "課程評價")]
-        [Required(ErrorMessage = "設定課程評價({0})為必填欄位")]
-        [Range(0, 5, ErrorMessage = "課程評價僅能輸入 0 ~ 5")]
         public int Credits { get; set; }
-        [Display(Name = "部門名稱")]
         public int DepartmentID { get; set; }
-        [Display(Name = "開課日期")]
-        [Required(ErrorMessage = "請輸入開課日期")]
         public System.DateTime OpenDate { get; set; }
-
+    
         public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Enrollment> Enrollment { get; set; }

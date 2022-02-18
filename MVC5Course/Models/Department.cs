@@ -11,8 +11,7 @@ namespace MVC5Course.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Department
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,7 +21,6 @@ namespace MVC5Course.Models
         }
     
         public int DepartmentID { get; set; }
-        [Display(Name = "部門名稱")]
         public string Name { get; set; }
         public decimal Budget { get; set; }
         public System.DateTime StartDate { get; set; }

@@ -26,13 +26,17 @@
                     <li>@Html.ActionLink("連絡人", "Contact", "Home")</li>
                     <li>@Html.ActionLink("測試動作", "Test", "Home")</li>
                     <li>@Html.ActionLink("測試控制器", "Index", "Test")</li>
+                    <li>@Html.ActionLink("部門管理", "Index", "Departments")</li>
                     <li>@Html.ActionLink("課程管理", "Index", "Courses")</li>
-                    @if (User.Identity.IsAuthenticated) {
+                    @if (User.Identity.IsAuthenticated)
+                    {
                         <li style="color: white">
                             登入者: @User.Identity.Name
                             | @Html.ActionLink("Logout", "Logout", "Accounts", new { ReturnUrl = Request.Url.ToString() }, null)
                         </li>
-                    } else {
+                    }
+                    else
+                    {
                         <li>@Html.ActionLink("登入", "Login", "Accounts", new { ReturnUrl = Request.Url.ToString() }, null)</li>
                     }
                 </ul>
