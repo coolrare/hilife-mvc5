@@ -7,6 +7,7 @@ using TaiwanNo1.Validation;
 
 namespace MVC5Course.Validations
 {
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class 身份證字號驗證Attribute : DataTypeAttribute
     {
         public 身份證字號驗證Attribute() : base(DataType.Text)
