@@ -55,7 +55,9 @@ namespace MVC5Course.Controllers
                     one.Credits = item.Credits;
                     one.OpenDate = item.OpenDate;
                 }
-                
+
+                //repo.UnitOfWork.Context.Configuration.ValidateOnSaveEnabled = false;
+
                 repo.UnitOfWork.Commit();
 
                 return RedirectToAction("Index");
