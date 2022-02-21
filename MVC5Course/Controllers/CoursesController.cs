@@ -14,7 +14,6 @@ namespace MVC5Course.Controllers
     [Authorize]
     public class CoursesController : Controller
     {
-        //private ContosoUniversityEntities db = new ContosoUniversityEntities();
         CourseRepository repo;
         DepartmentRepository deptRepo;
 
@@ -30,16 +29,12 @@ namespace MVC5Course.Controllers
         }
 
         // GET: Courses
-        public ActionResult Index(bool isJS = false)
+        public ActionResult Index(bool showAll = false)
         {
-            var course = repo.All();
-            //var course = db.Course.AsQueryable();
-            if (isJS)
-            {
-                course = course.Where(p => p.Title.Contains("JavaScript"));
-            }
+            repo.查詢一個非常複雜的課程資料();
+
+            var course = repo.All(showAll);
             course = course.Include(c => c.Department);
-            //course = course.OrderBy(p => p.CourseID).Skip(2).Take(2);
             return View(course.ToList());
         }
 
@@ -51,7 +46,7 @@ namespace MVC5Course.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Course course = db.Course.Find(id);
-            Course course = repo.All().FirstOrDefault(p => p.CourseID == id);
+            Course course = repo.Find(id.Value);
             if (course == null)
             {
                 return View("NotFound");
@@ -96,7 +91,7 @@ namespace MVC5Course.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = repo.All().FirstOrDefault(p => p.CourseID == id);
+            Course course = repo.Find(id.Value);
             if (course == null)
             {
                 return HttpNotFound();
@@ -138,7 +133,7 @@ namespace MVC5Course.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = repo.All().FirstOrDefault(p => p.CourseID == id);
+            Course course = repo.Find(id.Value);
             if (course == null || course.Credits >= 3)
             {
                 // LOG: id, User.Identity.Name, Request.UserHostAddress
@@ -152,7 +147,7 @@ namespace MVC5Course.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Course course = repo.All().FirstOrDefault(p => p.CourseID == id);
+            Course course = repo.Find(id);
 
             if (course == null || course.Credits >= 3)
             {
