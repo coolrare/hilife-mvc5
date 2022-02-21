@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC5Course.Models;
+using MVC5Course.ViewModels;
 
 namespace MVC5Course.Controllers
 {
@@ -35,6 +36,32 @@ namespace MVC5Course.Controllers
             var course = repo.All(showAll);
             course = course.Include(c => c.Department);
             return View(course.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult Index(CourseBatchUpdate[] data)
+        {
+            //data[0].CourseID
+            //data[0].Credits
+            //data[0].OpenDate
+
+            //data[1].CourseID
+
+            if (ModelState.IsValid)
+            {
+                foreach (var item in data)
+                {
+                    var one = repo.Find(item.CourseID);
+                    one.Credits = item.Credits;
+                    one.OpenDate = item.OpenDate;
+                }
+                
+                repo.UnitOfWork.Commit();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(data);
         }
 
         // GET: Courses/Details/5
