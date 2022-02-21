@@ -11,8 +11,7 @@ using MVC5Course.Models;
 
 namespace MVC5Course.Controllers
 {
-    [Authorize]
-    public class CoursesController : Controller
+    public class CoursesController : MemberBaseController
     {
         CourseRepository repo;
         DepartmentRepository deptRepo;

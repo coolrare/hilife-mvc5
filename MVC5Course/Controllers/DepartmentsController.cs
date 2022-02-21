@@ -10,7 +10,7 @@ using MVC5Course.Models;
 
 namespace MVC5Course.Controllers
 {
-    public class DepartmentsController : Controller
+    public class DepartmentsController : MemberBaseController
     {
         private ContosoUniversityEntities db = new ContosoUniversityEntities();
 
