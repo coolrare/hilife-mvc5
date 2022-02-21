@@ -271,6 +271,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\a0b9830e06ba4a6ea170a85e4b731cdf.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

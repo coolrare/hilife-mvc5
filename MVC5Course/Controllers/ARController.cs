@@ -32,5 +32,17 @@ namespace MVC5Course.Controllers
         {
             return PartialView("VR1");
         }
+
+        public ActionResult FR1(string dl)
+        {
+            if (dl == "1")
+            {
+                return File(Server.MapPath("~/Content/a0b9830e06ba4a6ea170a85e4b731cdf.jpg"), "image/jpeg", "烏克蘭總統.jpg");
+            }
+            else
+            {
+                return File(Server.MapPath("~/Content/a0b9830e06ba4a6ea170a85e4b731cdf.jpg"), "image/jpeg");
+            }
+        }
     }
 }
