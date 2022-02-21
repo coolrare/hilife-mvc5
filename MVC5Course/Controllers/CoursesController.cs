@@ -14,26 +14,32 @@ namespace MVC5Course.Controllers
     [Authorize]
     public class CoursesController : Controller
     {
-        private ContosoUniversityEntities db = new ContosoUniversityEntities();
+        //private ContosoUniversityEntities db = new ContosoUniversityEntities();
+        CourseRepository repo;
+        DepartmentRepository deptRepo;
 
         public CoursesController()
         {
-            db.Database.Log = (msg) =>
-            {
-                Debug.WriteLine(msg);
-            };
+            repo = RepositoryHelper.GetCourseRepository();
+            deptRepo = RepositoryHelper.GetDepartmentRepository(repo.UnitOfWork);
+
+            //db.Database.Log = (msg) =>
+            //{
+            //    Debug.WriteLine(msg);
+            //};
         }
 
         // GET: Courses
         public ActionResult Index(bool isJS = false)
         {
-            var course = db.Course.AsQueryable();
+            var course = repo.All();
+            //var course = db.Course.AsQueryable();
             if (isJS)
             {
                 course = course.Where(p => p.Title.Contains("JavaScript"));
             }
             course = course.Include(c => c.Department);
-            course = course.OrderBy(p => p.CourseID).Skip(2).Take(2);
+            //course = course.OrderBy(p => p.CourseID).Skip(2).Take(2);
             return View(course.ToList());
         }
 
@@ -44,7 +50,8 @@ namespace MVC5Course.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Course.Find(id);
+            //Course course = db.Course.Find(id);
+            Course course = repo.All().FirstOrDefault(p => p.CourseID == id);
             if (course == null)
             {
                 return View("NotFound");
@@ -55,7 +62,8 @@ namespace MVC5Course.Controllers
         // GET: Courses/Create
         public ActionResult Create()
         {
-            ViewBag.DepartmentID = new SelectList(db.Department, "DepartmentID", "Name");
+
+            ViewBag.DepartmentID = new SelectList(deptRepo.All(), "DepartmentID", "Name");
             return View();
         }
 
@@ -64,16 +72,20 @@ namespace MVC5Course.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CourseID,Title,Credits,DepartmentID,OpenDate")] Course course)
+        public ActionResult Create(
+            [Bind(Include = "CourseID,Title,Credits,DepartmentID,OpenDate")] Course course)
         {
             if (ModelState.IsValid)
             {
-                db.Course.Add(course);
-                db.SaveChanges();
+                //db.Course.Add(course);
+                //db.SaveChanges();
+                repo.Add(course);
+                repo.UnitOfWork.Commit();
+
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DepartmentID = new SelectList(db.Department, "DepartmentID", "Name", course.DepartmentID);
+            ViewBag.DepartmentID = new SelectList(deptRepo.All(), "DepartmentID", "Name", course.DepartmentID);
             return View(course);
         }
 
@@ -84,12 +96,12 @@ namespace MVC5Course.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Course.Find(id);
+            Course course = repo.All().FirstOrDefault(p => p.CourseID == id);
             if (course == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.DepartmentID = new SelectList(db.Department, "DepartmentID", "Name", course.DepartmentID);
+            ViewBag.DepartmentID = new SelectList(deptRepo.All(), "DepartmentID", "Name", course.DepartmentID);
             return View(course);
         }
 
@@ -98,16 +110,25 @@ namespace MVC5Course.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CourseID,Title,Credits,DepartmentID,OpenDate")] Course course)
+        public ActionResult Edit([Bind(Include = "CourseID,Title,Credits,DepartmentID,OpenDate")] Course item)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(course).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(course).State = EntityState.Modified;
+                //db.SaveChanges();
+
+                Course course = repo.All().FirstOrDefault(p => p.CourseID == item.CourseID);
+
+                course.Title = item.Title;
+                course.Credits = item.Credits;
+                course.OpenDate = item.OpenDate;
+
+                repo.UnitOfWork.Commit();
+
                 return RedirectToAction("Index");
             }
-            ViewBag.DepartmentID = new SelectList(db.Department, "DepartmentID", "Name", course.DepartmentID);
-            return View(course);
+            ViewBag.DepartmentID = new SelectList(deptRepo.All(), "DepartmentID", "Name", item.DepartmentID);
+            return View(item);
         }
 
         // GET: Courses/Delete/5
@@ -117,7 +138,7 @@ namespace MVC5Course.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Course.Find(id);
+            Course course = repo.All().FirstOrDefault(p => p.CourseID == id);
             if (course == null || course.Credits >= 3)
             {
                 // LOG: id, User.Identity.Name, Request.UserHostAddress
@@ -131,20 +152,20 @@ namespace MVC5Course.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Course course = db.Course.Find(id);
+            Course course = repo.All().FirstOrDefault(p => p.CourseID == id);
 
             if (course == null || course.Credits >= 3)
             {
                 return HttpNotFound();
             }
 
-            db.Course.Remove(course);
+            repo.Delete(course);
 
 
             //var list = db.Course.Where(p => p.Title.Contains("JavaScript"));
             //db.Course.RemoveRange(list);
 
-            db.SaveChanges();
+            repo.UnitOfWork.Commit();
             return RedirectToAction("Index");
         }
 
@@ -152,7 +173,7 @@ namespace MVC5Course.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                repo.UnitOfWork.Context.Dispose();
             }
             base.Dispose(disposing);
         }
