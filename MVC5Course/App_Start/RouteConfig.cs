@@ -13,7 +13,6 @@ namespace MVC5Course
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-
             routes.MapRoute(
                 name: "Short",
                 url: "r/{*shortUrl}",
