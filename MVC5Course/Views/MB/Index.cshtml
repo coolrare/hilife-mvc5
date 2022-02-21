@@ -1,0 +1,16 @@
+﻿@model String
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<hr />
+
+<ul>
+    <li>ViewData.Model   = @ViewData.Model   = @Model</li>
+    <li>ViewData["Key1"] = @ViewData["Key1"] = @ViewBag.Key1</li>
+    <li>ViewBag.Key2     = @ViewBag.Key2     = @ViewData["Key2"]</li>
+    <li>TempData["Msg"]  = @TempData["Msg"]</li>
+    <li>Session["Msg2"]  = @Session["Msg2"]</li>
+</ul>
