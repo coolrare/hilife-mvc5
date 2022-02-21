@@ -61,7 +61,9 @@ namespace MVC5Course.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(data);
+            var course = repo.All();
+            course = course.Include(c => c.Department);
+            return View(course.ToList());
         }
 
         // GET: Courses/Details/5
