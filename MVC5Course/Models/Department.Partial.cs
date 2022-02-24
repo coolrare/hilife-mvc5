@@ -19,7 +19,7 @@ namespace MVC5Course.Models
         [StringLength(50, ErrorMessage="欄位長度不得大於 50 個字元")]
         public string Name { get; set; }
         [Required]
-        [Range(1000, 99999)]
+        [Range(1000, 5000)]
         public decimal Budget { get; set; }
         [Required]
         [DataType(DataType.Date)]
@@ -54,7 +54,8 @@ namespace MVC5Course.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            throw new NotImplementedException();
+            yield return ValidationResult.Success;
+            //throw new NotImplementedException();
         }
     }
 }

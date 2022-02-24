@@ -1,0 +1,30 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@using System.Data.Entity.Validation
+
+@{
+    ViewBag.Title = "DbEntityValidationException";
+    var ex = Model.Exception as DbEntityValidationException;
+
+    // Write Log HERE!!!
+}
+
+<h2>DbEntityValidationException</h2>
+
+<hr />
+
+<pre>@ex.Message</pre>
+
+<hr />
+
+<ol>
+@{ 
+    foreach (var result in ex.EntityValidationErrors)
+    {
+        // result.IsValid
+        foreach (var err in result.ValidationErrors)
+        {
+            <li>@err.PropertyName : @err.ErrorMessage</li>
+        }
+    }
+}
+</ol>

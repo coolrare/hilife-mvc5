@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -100,6 +101,7 @@ namespace MVC5Course.Controllers
 
                 return RedirectToAction("Index");
             }
+
             ViewBag.InstructorID = new SelectList(db.Person, "ID", "LastName", department.InstructorID);
             return View(department);
         }
