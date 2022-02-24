@@ -8,14 +8,16 @@ using System.Web.Security;
 
 namespace MVC5Course.Controllers
 {
-    public class AccountsController : Controller
+    public class AccountsController : MemberBaseController
     {
+        [AllowAnonymous]
         public ActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Login(LoginViewModel user, string ReturnUrl)
         {
             if (ModelState.IsValid)
