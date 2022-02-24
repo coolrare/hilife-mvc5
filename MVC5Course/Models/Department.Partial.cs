@@ -33,7 +33,7 @@ namespace MVC5Course.Models
         public virtual Person Person { get; set; }
     }
 
-    public partial class DepartmentEdit
+    public partial class DepartmentEdit : IValidatableObject
     {
         [Required]
         public int DepartmentID { get; set; }
@@ -51,5 +51,10 @@ namespace MVC5Course.Models
         public System.DateTime StartDate { get; set; }
 
         public Nullable<int> InstructorID { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
