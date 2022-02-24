@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using MVC5Course.Models;
 
 namespace MVC5Course.Controllers
@@ -15,6 +16,7 @@ namespace MVC5Course.Controllers
         private ContosoUniversityEntities db = new ContosoUniversityEntities();
 
         // GET: Departments
+        //[OutputCache(Location = OutputCacheLocation.Client, Duration = 60)]
         public ActionResult Index()
         {
             var department = db.Department.Include(d => d.Person);
