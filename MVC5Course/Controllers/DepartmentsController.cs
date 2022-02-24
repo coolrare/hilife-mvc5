@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using MVC5Course.Models;
+using Omu.ValueInjecter;
 
 namespace MVC5Course.Controllers
 {
@@ -76,8 +77,13 @@ namespace MVC5Course.Controllers
             {
                 return HttpNotFound();
             }
+            
             ViewBag.InstructorID = new SelectList(db.Person, "ID", "LastName", department.InstructorID);
-            return View(department);
+
+            //var dept = (new DepartmentEdit()).InjectFrom(department);
+            var dept = Mapper.Map<DepartmentEdit>(department);
+
+            return View(dept);
         }
 
         // POST: Departments/Edit/5
@@ -103,7 +109,10 @@ namespace MVC5Course.Controllers
             }
 
             ViewBag.InstructorID = new SelectList(db.Person, "ID", "LastName", department.InstructorID);
-            return View(department);
+
+            var dept = Mapper.Map<DepartmentEdit>(department);
+
+            return View(dept);
         }
 
         // GET: Departments/Delete/5
