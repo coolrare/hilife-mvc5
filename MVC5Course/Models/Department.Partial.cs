@@ -3,7 +3,8 @@ namespace MVC5Course.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
+    using System.Web.Mvc;
+
     [MetadataType(typeof(DepartmentMetaData))]
     public partial class Department
     {
@@ -38,6 +39,7 @@ namespace MVC5Course.Models
         public int DepartmentID { get; set; }
 
         [Required]
+        [AllowHtml]
         [StringLength(50, ErrorMessage = "欄位長度不得大於 50 個字元")]
         public string Name { get; set; }
         [Required]
