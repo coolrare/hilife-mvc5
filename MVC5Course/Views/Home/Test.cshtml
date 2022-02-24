@@ -1,7 +1,54 @@
-﻿
-@{
-    ViewBag.Title = "Test";
+﻿@{
+    ViewBag.Num = 5;
 }
 
-<h2>Test</h2>
+@for (int i = 1; i <= ViewBag.Num; i++)
+{
+    @i
+}
 
+
+@for (int i = 1; i <= ViewBag.Num; i++)
+{
+    @(i + " ") 
+}
+
+
+<ul>
+@for (int i = 1; i <= ViewBag.Num; i++)
+{
+  <li>@i</li>
+}
+</ul>
+
+<script>
+alert('@{
+        for (int i = 1; i <= ViewBag.Num; i++) {
+            @i
+            if (i < ViewBag.Num)
+            {
+                @(".")
+            }
+        }
+      }');
+</script>
+
+@*
+
+    12345
+
+    1 2 3 4 5
+
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+    </ul>
+
+    <script>
+    alert('1.2.3.4.5')
+    </script>
+
+*@

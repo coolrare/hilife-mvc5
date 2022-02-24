@@ -29,7 +29,7 @@ namespace MVC5Course.Controllers
 
         public ActionResult Test()
         {
-            return View();
+            return PartialView();
         }
 
         public ActionResult Short(string shortUrl)
