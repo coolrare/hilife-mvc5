@@ -511,6 +511,8 @@
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\MB\Index.cshtml" />
     <Content Include="Views\Shared\Error.DbEntityValidationException.cshtml" />
+    <Content Include="Views\Home\Metro.cshtml" />
+    <Content Include="Views\Shared\_Layout.Metro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

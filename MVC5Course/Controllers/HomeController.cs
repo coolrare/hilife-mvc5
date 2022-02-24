@@ -36,5 +36,10 @@ namespace MVC5Course.Controllers
         {
             return Content(shortUrl);
         }
+
+        public ActionResult Metro()
+        {
+            return View();
+        }
     }
 }
