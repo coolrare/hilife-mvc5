@@ -1,0 +1,12 @@
+﻿@model int
+
+@Html.TextBox("", Model, new
+{
+    type = "range",
+    min = "0",
+    max = "5",
+    step = "1"
+})
+
+Id = @Html.Id("")
+
