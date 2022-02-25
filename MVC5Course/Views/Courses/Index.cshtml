@@ -21,7 +21,7 @@
 @Html.PagedListPager(Model as IPagedList, p => Url.Action("Index", 
     new { 
         PageNo = p, 
-        Department = ViewData.ModelState["Department"].Value.AttemptedValue
+        Department = ViewData.ModelState["Department"]?.Value.AttemptedValue
     }))
 
 @using (Html.BeginForm())
