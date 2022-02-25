@@ -10,11 +10,14 @@
 @using (Html.BeginForm(actionName, ctrlName, FormMethod.Get))
 {
     <p>
-        @Html.DropDownList("Department", null, "--請選擇--")
-
-        <input type="submit" value="搜尋" />
-
         @Html.ActionLink("Create New", "Create")
+    </p>
+    <p>
+        @Html.DropDownList("Department", null, "--請選擇--",
+            new { onchange="this.form.submit();", @class="form-control" })
+
+        @*<input type="submit" value="搜尋" class="btn btn-default"/>*@
+
     </p>
 }
 
