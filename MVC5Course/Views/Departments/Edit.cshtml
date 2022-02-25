@@ -10,6 +10,11 @@
     }
 }
 
+@{ 
+    var controllerName = ViewContext.RouteData.Values["controller"].ToString();
+    var actionName = ViewContext.RouteData.Values["action"].ToString();
+}
+
 <h2>Edit</h2>
 
 @using (Html.BeginForm())
