@@ -19,5 +19,7 @@ namespace MVC5Course.ViewModels
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public System.DateTime OpenDate { get; set; }
+
+        public bool IsConfirmDelete { get; set; }
     }
 }

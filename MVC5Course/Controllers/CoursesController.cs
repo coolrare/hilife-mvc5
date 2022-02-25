@@ -38,7 +38,7 @@ namespace MVC5Course.Controllers
 
             repo.查詢一個非常複雜的課程資料();
 
-            var course = repo.All();
+            var course = repo.All(true);
             course = course.Include(c => c.Department);
 
             if (Department.HasValue)
@@ -63,8 +63,16 @@ namespace MVC5Course.Controllers
                 foreach (var item in data)
                 {
                     var one = repo.Find(item.CourseID);
-                    one.Credits = item.Credits;
-                    one.OpenDate = item.OpenDate;
+
+                    if (item.IsConfirmDelete)
+                    {
+                        repo.Delete(one);
+                    }
+                    else
+                    {
+                        one.Credits = item.Credits;
+                        one.OpenDate = item.OpenDate;
+                    }
                 }
 
                 //repo.UnitOfWork.Context.Configuration.ValidateOnSaveEnabled = false;
@@ -146,7 +154,7 @@ namespace MVC5Course.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CourseID,Title,Credits,DepartmentID,OpenDate")] Course item)
+        public ActionResult Edit([Bind(Include = "CourseID,Title,Credits,DepartmentID,OpenDate,IsEnabled")] Course item)
         {
             if (ModelState.IsValid)
             {
@@ -158,6 +166,7 @@ namespace MVC5Course.Controllers
                 course.Title = item.Title;
                 course.Credits = item.Credits;
                 course.OpenDate = item.OpenDate;
+                course.IsEnabled = item.IsEnabled;
 
                 repo.UnitOfWork.Commit();
 

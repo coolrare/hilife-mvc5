@@ -16,10 +16,10 @@ namespace MVC5Course.Models
             return this.All().FirstOrDefault(p => p.CourseID == id);
         }
 
-        public override IQueryable<Course> All()
-        {
-            return base.All().Where(p => p.IsEnabled);
-        }
+        //public override IQueryable<Course> All()
+        //{
+        //    return base.All().Where(p => p.IsEnabled);
+        //}
 
         public IQueryable<Course> All(bool showAll)
         {
