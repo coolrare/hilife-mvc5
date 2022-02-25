@@ -1,5 +1,6 @@
-﻿@model IEnumerable<MVC5Course.Models.Course>
-
+﻿@using X.PagedList
+@using X.PagedList.Mvc
+@model IEnumerable<MVC5Course.Models.Course>
 @{
     ViewBag.Title = "Index";
     var ctrlName = ViewContext.RouteData.Values["controller"].ToString();
@@ -18,6 +19,8 @@
         @Html.ActionLink("Create New", "Create")
     </p>
 }
+
+@Html.PagedListPager(Model as IPagedList, p => Url.Action("Index", new { PageNo = p }))
 
 @using (Html.BeginForm())
 {

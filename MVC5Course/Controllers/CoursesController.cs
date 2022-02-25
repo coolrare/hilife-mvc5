@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using MVC5Course.Models;
 using MVC5Course.ViewModels;
+using X.PagedList;
 
 namespace MVC5Course.Controllers
 {
@@ -29,7 +30,7 @@ namespace MVC5Course.Controllers
         }
 
         // GET: Courses
-        public ActionResult Index(int? Department)
+        public ActionResult Index(int? Department, int PageNo = 1)
         {
             ViewData["Department"] = new SelectList(
                 items: deptRepo.All(),
@@ -38,7 +39,8 @@ namespace MVC5Course.Controllers
 
             repo.查詢一個非常複雜的課程資料();
 
-            var course = repo.All(true);
+            var course = repo.All(true).OrderBy(p => p.CourseID).AsQueryable();
+
             course = course.Include(c => c.Department);
 
             if (Department.HasValue)
@@ -46,7 +48,7 @@ namespace MVC5Course.Controllers
                 course = course.Where(p => p.DepartmentID == Department);
             }
 
-            return View(course.ToList());
+            return View(course.ToPagedList(PageNo, 3));
         }
 
         [HttpPost]
