@@ -63,4 +63,6 @@
 
 <h2>課程清單</h2>
 
-@Html.Partial("DepartmentCourseList", ViewData["CourseList"])
+@*@Html.Partial("DepartmentCourseList", ViewData["CourseList"])*@
+
+@Html.Action("DepartmentCourseList", new { departmentId = Model.DepartmentID })
