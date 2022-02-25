@@ -521,6 +521,7 @@
     <Content Include="Views\Metro\_ViewStart.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\以星星顯示Credit欄位.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\以星星顯示Credit欄位.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\GoogleStaticMaps.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
