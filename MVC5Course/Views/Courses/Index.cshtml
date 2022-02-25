@@ -2,13 +2,22 @@
 
 @{
     ViewBag.Title = "Index";
+    var ctrlName = ViewContext.RouteData.Values["controller"].ToString();
+    var actionName = ViewContext.RouteData.Values["action"].ToString();
 }
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@using (Html.BeginForm(actionName, ctrlName, FormMethod.Get))
+{
+    <p>
+        @Html.DropDownList("Department", null, "--請選擇--")
+
+        <input type="submit" value="搜尋" />
+
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 
 @using (Html.BeginForm())
 {
@@ -32,7 +41,7 @@
             <th></th>
         </tr>
 
-        @{ 
+        @{
             var data = Model.ToArray();
         }
         @for (var i = 0; i < data.Length; i++)

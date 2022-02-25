@@ -13,7 +13,7 @@ namespace MVC5Course.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
-            return View();
+            return View(new LoginViewModel() { Username = "def" });
         }
 
         [HttpPost]
@@ -33,7 +33,7 @@ namespace MVC5Course.Controllers
                     return Redirect(ReturnUrl);
                 }
             }
-            return View();
+            return View(new LoginViewModel() { Username = "def" });
         }
 
         public ActionResult Logout(string ReturnUrl)

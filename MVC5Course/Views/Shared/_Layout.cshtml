@@ -28,6 +28,7 @@
                     <li>@Html.ActionLink("測試控制器", "Index", "Test")</li>
                     <li>@Html.ActionLink("部門管理", "Index", "Departments")</li>
                     <li>@Html.ActionLink("課程管理", "Index", "Courses")</li>
+                    <li><a href="@Url.Action("Index", "Courses")" class="active">課程管理</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li style="color: white">

@@ -29,12 +29,23 @@ namespace MVC5Course.Controllers
         }
 
         // GET: Courses
-        public ActionResult Index(bool showAll = false)
+        public ActionResult Index(int? Department)
         {
+            ViewData["Department"] = new SelectList(
+                items: deptRepo.All(),
+                dataValueField: "DepartmentId",
+                dataTextField: "Name");
+
             repo.查詢一個非常複雜的課程資料();
 
-            var course = repo.All(showAll);
+            var course = repo.All();
             course = course.Include(c => c.Department);
+
+            if (Department.HasValue)
+            {
+                course = course.Where(p => p.DepartmentID == Department);
+            }
+
             return View(course.ToList());
         }
 
