@@ -37,6 +37,9 @@ namespace MVC5Course.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewData["CourseList"] = db.Course.Where(p => p.DepartmentID == id.Value);
+
             return View(department);
         }
 

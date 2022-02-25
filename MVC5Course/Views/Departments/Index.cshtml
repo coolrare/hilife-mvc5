@@ -2,7 +2,11 @@
 
 @{
     ViewBag.Title = "Index";
-    var opt = new AjaxOptions() { UpdateTargetId = "detail", HttpMethod = "get" };
+    var opt = new AjaxOptions() {
+        UpdateTargetId = "detail",
+        HttpMethod = "get",
+        OnSuccess = "callSuccess"
+    };
 }
 
 <h2>Index @DateTime.Now </h2>
@@ -42,9 +46,9 @@
             @Html.DisplayFor(modelItem => item.Person.LastName)
         </td>
         <td>
-            @Ajax.ActionLink("Edit", "Edit", new { id=item.DepartmentID }, opt) |
-            @Ajax.ActionLink("Details", "Details", new { id=item.DepartmentID }, opt) |
-            @Ajax.ActionLink("Delete", "Delete", new { id=item.DepartmentID }, opt)
+            @Html.ActionLink("Edit", "Edit", new { id=item.DepartmentID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DepartmentID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DepartmentID })
         </td>
     </tr>
 }
@@ -54,3 +58,12 @@
 <hr />
 
 <div id="detail"></div>
+
+@section Scripts {
+    <script>
+        function callSuccess() {
+            console.log($(this).parent().find('tr'))
+            //$(this).parent().parent().css('background-color', 'yellow');
+        }
+    </script>
+}

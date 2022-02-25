@@ -58,3 +58,9 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.DepartmentID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<hr />
+
+<h2>課程清單</h2>
+
+@Html.Partial("DepartmentCourseList", ViewData["CourseList"])
