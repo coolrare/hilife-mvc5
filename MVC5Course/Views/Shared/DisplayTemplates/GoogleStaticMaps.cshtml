@@ -1,0 +1,3 @@
+﻿@model string
+
+<img src="https://maps.googleapis.com/maps/api/staticmap?center=@Url.Encode(Model)&zoom=13&size=600x300&maptype=roadmap&key={API_KEY}" loading="lazy" width="600" height="300" />

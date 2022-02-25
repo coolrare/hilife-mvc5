@@ -29,6 +29,7 @@ namespace MVC5Course.Models
             [Display(Name = "課程名稱")]
             [Required(ErrorMessage = "請輸入課程名稱")]
             //[身份證字號驗證]
+            //[UIHint("GoogleStaticMaps")]
             public string Title { get; set; }
             [Display(Name = "課程評價")]
             [Required(ErrorMessage = "設定課程評價({0})為必填欄位")]
